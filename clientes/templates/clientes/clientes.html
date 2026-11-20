@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+    <link rel="stylesheet" href="{% static 'clientes/css/styles.css' %}">
+</head>
+<body>
+    <nav class="nav">
+        <a href="/">Inicio</a>
+        <a href="{% url 'clientes:paginaClientes' %}">Clientes</a>
+        <a href="{% url 'clientes:crear_cliente' %}">Nuevo cliente</a>
+    </nav>
+
+    <div class="contenedor">
+        <div class="encabezado">
+            <h1>Clientes</h1>
+            <a href="{% url 'clientes:crear_cliente' %}" class="btn">+ Agregar cliente</a>
+        </div>
+
+        {% if clientes %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in clientes %}
+                        <tr>
+                            <td>
+                                {% if c.fotografia %}
+                                    <img src="{{ c.fotografia.url }}" alt="Foto de {{ c.nombre }}" class="mini-img">
+                                {% else %}
+                                    <img src="{% static 'clientes/img/avatardefault.png' %}" alt="Avatar por defecto" class="mini-img">
+                                {% endif %}
+                            </td>
+                            <td>{{ c.nombre }}</td>
+                            <td>{{ c.correo }}</td>
+                            <td>{{ c.telefono }}</td>
+                            <td>{% if c.activo %}Activo{% else %}Inactivo{% endif %}</td>
+                            <td>
+                                <a href="{% url 'clientes:detalle_cliente' c.pk %}">Ver detalle</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay clientes registrados todavía.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

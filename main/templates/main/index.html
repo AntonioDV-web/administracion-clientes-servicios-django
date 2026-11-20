@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración</title>
+    <link rel="stylesheet" href="{% static 'main/css/styles.css' %}">
+</head>
+<body>
+    <nav class="nav">
+        <a href="{% url 'main:main' %}">Inicio</a>
+        <a href="{% url 'clientes:paginaClientes' %}">Clientes</a>
+        <a href="{% url 'servicios:paginaServicios' %}">Servicios</a>
+    </nav>
+
+    <div class="contenedor">
+        <h1>Administración de Clientes y Servicios</h1>
+        <p class="subtitulo">Selecciona el módulo con el que deseas trabajar.</p>
+
+        <div class="tarjetas">
+            <div class="tarjeta">
+                <h2>Clientes</h2>
+                <p>Consulta la lista de clientes, revisa sus detalles o registra uno nuevo.</p>
+                <a href="{% url 'clientes:paginaClientes' %}" class="btn">Ir a Clientes</a>
+            </div>
+
+            <div class="tarjeta">
+                <h2>Servicios</h2>
+                <p>Administra los servicios disponibles, su estado y su información.</p>
+                <a href="{% url 'servicios:paginaServicios' %}" class="btn">Ir a Servicios</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

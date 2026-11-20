@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de servicio</title>
+    <link rel="stylesheet" href="{% static 'servicios/css/styles.css' %}">
+</head>
+<body>
+    <nav class="nav">
+        <a href="/">Inicio</a>
+        <a href="{% url 'clientes:paginaClientes' %}">Clientes</a>
+        <a href="{% url 'servicios:paginaServicios' %}">Servicios</a>
+        <a href="{% url 'servicios:crear_servicio' %}">Nuevo servicio</a>
+    </nav>
+
+    <div class="contenedor">
+        {% if messages %}
+            {% for mensaje in messages %}
+                <div class="mensaje-exito">{{ mensaje }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if servicio.fotografia %}
+            <img src="{{ servicio.fotografia.url }}" alt="Foto de {{ servicio.nombre }}" class="detalle-img">
+        {% else %}
+            <img src="{% static 'servicios/img/avatardefault.png' %}" alt="Servicio por defecto" class="detalle-img">
+        {% endif %}
+
+        <h1>{{ servicio.nombre }}</h1>
+        <p><strong>Descripción:</strong> {{ servicio.descripcion }}</p>
+        <p><strong>Estado:</strong> {% if servicio.activo %}Activo{% else %}Inactivo{% endif %}</p>
+
+        <br>
+        <a href="{% url 'servicios:paginaServicios' %}" class="btn">Volver a la lista</a>
+    </div>
+</body>
+</html>

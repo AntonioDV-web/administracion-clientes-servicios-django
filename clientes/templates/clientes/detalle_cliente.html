@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de cliente</title>
+    <link rel="stylesheet" href="{% static 'clientes/css/styles.css' %}">
+</head>
+<body>
+    <nav class="nav">
+        <a href="/">Inicio</a>
+        <a href="{% url 'clientes:paginaClientes' %}">Clientes</a>
+        <a href="{% url 'clientes:crear_cliente' %}">Nuevo cliente</a>
+    </nav>
+
+    <div class="contenedor">
+        {% if cliente.fotografia %}
+            <img src="{{ cliente.fotografia.url }}" alt="Foto de {{ cliente.nombre }}" style="max-width: 180px; border-radius: 6px;">
+        {% else %}
+            <img src="{% static 'clientes/img/avatardefault.png' %}" alt="Avatar por defecto" style="max-width: 180px; border-radius: 6px;">
+        {% endif %}
+        {% if messages %}
+            {% for mensaje in messages %}
+                <div class="mensaje-exito">{{ mensaje }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <h1>{{ cliente.nombre }}</h1>
+        <p><strong>Correo:</strong> {{ cliente.correo }}</p>
+        <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+        <p><strong>Estado:</strong> {% if cliente.activo %}Activo{% else %}Inactivo{% endif %}</p>
+
+        <br>
+        <a href="{% url 'clientes:paginaClientes' %}" class="btn">Volver a la lista</a>
+    </div>
+</body>
+</html>

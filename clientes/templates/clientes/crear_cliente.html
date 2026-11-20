@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar cliente</title>
+    <link rel="stylesheet" href="{% static 'clientes/css/styles.css' %}">
+</head>
+<body>
+    <nav class="nav">
+        <a href="/">Inicio</a>
+        <a href="{% url 'clientes:paginaClientes' %}">Clientes</a>
+        <a href="{% url 'clientes:crear_cliente' %}">Nuevo cliente</a>
+    </nav>
+
+    <div class="contenedor">
+        <h1>Registrar cliente</h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% for campo in formulario %}
+                <div class="campo">
+                    {{ campo.label_tag }}
+                    {{ campo }}
+                    {% if campo.errors %}
+                        <div class="error">{{ campo.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn">Guardar cliente</button>
+            <a href="{% url 'clientes:paginaClientes' %}">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>
